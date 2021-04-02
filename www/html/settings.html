@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   	 <meta charset="utf-8">
+  	 <title>Verse Card App</title>
+  	 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  	 
+  	<link rel="stylesheet" href="../css/style.css">
+   	<style>
+   	.header {
+   		width: 100%;
+   		padding: 1em;
+   		font-size: 1em;
+   		border-bottom: 1px solid grey;
+   		text-align: center;
+   	}
+   	ul {
+   		list-style-type: none;
+   		padding:0;
+   		margin:0;
+   	}
+   	ul.settlist li {
+   		display:flex;
+   		justify-content: space-between;
+   		align-items: center;
+   		padding:1em;
+   		border-bottom: 1px solid lightgrey;
+   	}
+   	.footer {
+   		position: absolute;
+   		bottom: 1em;
+   		width: 100%;
+   		border-top: 1px solid lightgrey;
+   		padding:0;
+   		padding-top: .5em;
+   	}
+   	input[type=submit] {
+   		padding: .5em 1em;
+   		border: none;
+   		border: 0;
+   		border-radius: 10%;
+   		outline: none;
+   		background: transparent;
+   		font-size: 1.2em;
+   		letter-spacing: 1px;
+   		float: right;
+   		margin-right: 1em;
+   		color: lightgrey;
+   	}
+   	select {
+   		border: none;
+   		background: transparent;
+   		padding: .5em;
+   		margin: auto 0;
+   		outline: none;
+   		font-size: 1em;
+   		color: grey;
+   		text-align-last: right;
+   	}
+   	option {
+   		text-align: center
+   	}
+   </style>
+ </head>
+ 
+  <body>
+      <div class="container">
+      	<div class="header">
+      		Settings
+      	</div>
+      	<form action="main.html" id="form">
+      	<ul class="settlist">
+      		<li>Color of the Cards
+      				<select id="theme">
+      					<option value="dodgerblue">
+      						Dodgerblue
+      					</option>
+      					<option value="forestgreen">
+      						Forestgreen
+      					</option>
+      					<option value="firebrick">
+      						Firebrick
+      					</option>
+      					<option value="white">
+      						White
+      					</option>
+      					<option value="black">
+      						Black
+      					</option>
+      				</select>
+      		</li>
+      		<li>Show Cards by
+      				<select name="show" id="show">
+      					<option value="back">Verse</option>
+      					<option value="front">Content</option>
+      				</select>
+      			</li>
+      		</ul>
+      		<div class="footer">
+      			<input type="submit" value="Save" id="save">
+      		</div>
+      	</form>
+      </div>
+      
+      <script>
+      	var show = document.getElementById('show');
+      	var cont = localStorage.getItem('content');
+      	var theme = document.getElementById('theme');
+      	var bg = localStorage.getItem('theme');
+      	
+      	if (cont == "back") {
+      		show.options[0].selected = "true";
+      	} else if (cont == "front") {
+      		show.options[1].selected = "true";
+      	}
+      	
+      	if (bg == "dodgerblue") {
+      		theme.options[0].selected = "true";
+      	} else if (bg == "forestgreen") {
+      		theme.options[1].selected = "true";
+      	} else if (bg == "firebrick") {
+      		theme.options[2].selected = "true";
+      	} else if (bg == "white") {
+      		theme.options[3].selected = "true";
+      	} else if (bg == "black") {
+      		theme.options[4].selected = "true";
+      	}
+      	document.getElementById('form')
+      	.addEventListener('submit', function (e) {
+      			e.preventDefault();
+      			localStorage.setItem('content', show.value);
+      			localStorage.setItem('theme', theme.value);
+      		});
+      	
+      	const save = document.getElementById('save');
+      	show.addEventListener('change', function () {
+      		save.style.color = "black";
+      	})
+      	theme.addEventListener('change', function () {
+      		save.style.color = "black";
+      	})
+      	save.addEventListener('click', function () {
+      		save.style.color = "lightgrey";
+      	})
+   
+    </script>
+    
+</body>
+</html>

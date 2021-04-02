@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Verse Card App</title>
+    	 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+      
+      <link rel="stylesheet" href="../css/style.css">
+      <style>
+      	.header {
+      		width: 100%;
+      		padding: 1em;
+      		display: flex;
+      		justify-content: space-between;
+      		border-bottom: 1px solid grey;
+      	}
+      	input[type=text] {
+      		width: 60%;
+      		padding: .5em;
+      		font-size: 1em;
+      		outline: none;
+      		border: 1px solid lightgrey;
+      	}
+      	#dd {
+      		padding: .5em;
+      		font-size: 1em;
+      		background: #f1f1f1;
+      		border-radius: 5px;
+      		text-align: center;
+      		outline: none;
+      	}
+      	.body {
+       		height: 85%;
+        		width: 100%;
+        		overflow-y: scroll;
+       	}
+      	ul {
+      		list-style-type: none;
+      		padding: 0;
+      	}
+      	li {
+      		border-bottom: 1px solid lightgrey;
+      	}
+      	.label {
+      		padding: 1em;
+      	}
+      	small {
+      		float: right;
+      		color: grey;
+      		font-weight: bold;
+      	}
+      	.content {
+      		width: 100%;
+      		overflow: hidden;
+      		color: #4d4d4d;
+      		padding: 0 1em 1em 1em;
+      		display: none;
+      	}
+      	.show {
+      		display: block;
+      	}
+      </style>
+   </head>
+   <body>
+		<div class="header">
+			<input type="text" placeholder="Search..." id="search">
+			<select id="dd">
+				<option value="0" selected>Verse</option>
+				<option value="1">Content</option>
+			</select>
+		</div>
+		 
+		<div class="body">
+					<ul id="ul"></ul>
+		</div>
+   	
+   	<script src="../js/verses.js"></script>
+   	<script>
+   		const verse = verses.map(data => {
+   			return `<li>
+							<div class="label" onclick="accor(this)">
+								${data.verse}
+								<small>${data.index}</small>
+							</div>
+							<div class="content">
+								${data.content}
+							</div>
+						
+						</li>`;
+   			}).join("");
+   			
+   		document.getElementById("ul").innerHTML = verse;
+   		
+   		var search = document.getElementById("search");
+   		var ul = document.getElementById("ul");
+   		var li = ul.getElementsByTagName("li");
+   		var dd = document.getElementById("dd");
+   		
+   		search.addEventListener("keyup", function () {
+   		
+		var filter = search.value.toUpperCase();
+		
+		if (dd.options[0].selected) {
+			for (var i=0;i<li.length;i++) {
+				
+			var label = li[i].getElementsByClassName("label")[0];
+			var v = label.textContent.toUpperCase();
+			if (v.indexOf(filter) > -1) {
+				li[i].style.display = "block";
+			} else {
+				li[i].style.display = "none";
+			}
+			}
+		} else if (dd.options[1].selected) {
+			for (var i=0;i<li.length;i++) {
+			var div = li[i].getElementsByClassName("content")[0];
+			var c = div.textContent.toUpperCase();
+			if (c.indexOf(filter) > -1) {
+				li[i].style.display = "block";
+			} else {
+				li[i].style.display = "none";
+			}
+			}
+		} 
+		});	
+		
+		function accor(label) {
+			label.nextElementSibling.classList.toggle("show");
+		}
+		
+   	</script>
+   	
+   </body>
+</html>

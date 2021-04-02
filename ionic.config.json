@@ -1,0 +1,7 @@
+{
+  "name": "verse_card",
+  "type": "custom",
+  "integrations": {
+    "cordova": {}
+  }
+}

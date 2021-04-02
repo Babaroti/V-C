@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+	<meta charset="utf-8">
+  	<title>Verse Card App</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  	
+  	<link rel="stylesheet" href="../css/style.css">
+  	<!-- Link Swiper's CSS -->
+  	<link rel="stylesheet" href="../css/swiper.min.css">
+  	<style>
+    	sup {
+    		color: grey;
+    		font-size: .5em;
+    		font-weight: bold;
+    	}
+   	sup::after {
+    		content: " ";
+    }
+    	hr {
+    		margin: 2em 0;
+    }
+  	.form-container {
+  		width: 100vw;
+  		left: 0;
+  		height: 100%;
+  		position: absolute;
+  		z-index: 2;
+  		transition: .5s;
+  		overflow: hidden;
+  		background: #fff;
+  	}
+  	.title {
+  		width: 100%;
+   		padding: 2em 1em 2em 1em;
+   		font-size: 1.5em;
+  	}
+  	form {
+  		position: absolute;
+  		height: 100%;
+  		width: 100%;
+  	}
+  	input[type=number] {
+  		width: 30vw;
+  		height: 3rem;
+  		outline: none;
+  		border: none;
+  		border-bottom: 2px solid grey;
+  	}
+  	.label {
+  		font-size: 1.2em;
+  		padding: .5em;
+  		text-align: center;
+  		color: #fff;
+  	}
+  	.sect {
+  		width: 100vw;
+  		display: flex;
+  		justify-content: space-around;
+  		padding-top: 2em;
+  		padding-bottom: 4em;
+  		border-bottom: 1px solid lightgrey;
+  	}
+  	input[type=submit] {
+  		border: none;
+  		outline: none;
+  		margin: auto;
+  		font-size: 1em;
+  		font-weight: bold;
+  		letter-spacing: 3px;
+  		box-shadow: 0 0 3px 1px grey;
+  		border-radius: 1em;
+  		background: #fff;
+  		padding: 5px 1em;
+  		color: grey;
+  		margin-top: 1.6em;
+  	}
+  	input[type=submit]:active {
+  		background: lightgrey;
+  	}
+  	.messbtn {
+  		display: flex;
+  		justify-content: space-around;
+  	}
+  	.swiper-container {
+      	width: 100%;
+     	 height: 90%;
+    	 	margin-left: auto;
+      	margin-right: auto;
+    }
+    .swiper-slide {
+     	 background: #fff;
+     	 /* Center slide text vertically */
+      	display: -webkit-box;
+      	display: -ms-flexbox;
+      	display: -webkit-flex;
+ 	     display: flex;
+ 	     -webkit-box-pack: center;
+	      -ms-flex-pack: center;
+	      -webkit-justify-content: center;
+	      justify-content: center;
+	      -webkit-box-align: center;
+	      -ms-flex-align: center;
+	      -webkit-align-items: center;
+	      align-items: center;
+    }
+    .button {
+    		width: 100%;
+    		display: flex;
+    		justify-content: center;
+    }
+    button {
+    		border: none;
+  		outline: none;
+ 	 	margin: auto;
+	  	font-size: 1em;
+	  	box-shadow: 0 0 3px 1px grey;
+	  	border-radius: 1em;
+	  	background: #fff;
+	  	padding: 7px .7em;
+	  	color: grey;
+	  	margin: 2px;
+    }
+    button:active {
+  	  	background: lightgrey;
+    }
+    #message {
+  	  	width: 70vw;
+	    	margin-top: 1em;
+	    	padding-left: 1em;
+    }
+    li {
+ 	   	list-style-type: none;
+	    	overflow-wrap: inherit;
+	    	color: red;
+	    	font-size: .8em;
+	    	width: 100%;
+	    	padding: .5em;
+    }
+ </style>
+ 
+</head>
+<body>
+   	<div class="form-container" id="cover">
+   		<div class="title">
+   			Put Verse Index Number
+   		</div>
+      	<form id="form" action="select.html">
+      		<div class="sect">
+      			<input type="number"
+      				 	   id="from"
+      					    name="from"
+      					    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+      				 	   maxlength="3" autofocus placeholder="From">
+  
+      			<input type="number"
+      					    id="to"
+      					    name="to"
+      					    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+      					    maxlength="3" placeholder="To">
+      		
+      		</div>
+      		<div class="messbtn">
+      			<div id="message"></div>
+      			<input type="submit" value="GO">
+      		</div>
+      	</form>
+      </div>
+      <div class="swiper-container">
+      	<div class="swiper-wrapper" id="container">
+      		<!-- verses here -->
+      	</div>
+      </div>
+      
+      <div class="button">
+      	<button type="button">Shuffle</button>
+      </button>
+      
+      <script src="../js/verses.js"></script>
+      <script>
+      	const form = document.getElementById('form');
+      	const from = document.getElementById('from');
+      	const to = document.getElementById('to');
+      	
+      	form.addEventListener('submit', function (e) {
+      		e.preventDefault();
+      		var f = from.value - 1;
+      		var t = to.value;
+      		const msg = document.getElementById('message');
+      		var message = [];
+      		if (f >= t) {
+      			message.push("'From' should be less than 'To'.");
+      		}
+      		 if (t > 500) {
+      			message.push("'To' should not exceed 500.");
+      		}
+      		msg.innerHTML = message.map(function (currentValue) {
+      			return `<li>${currentValue}</li>`;
+      		}).join('');
+      		
+      		if (f < t && t < 501 && f != -1) {
+      			var cover = document.getElementById('cover');
+      			cover.style.left = "-100vw";
+      			myFunc(f, t);
+      		}
+      	});
+      	
+     var cont = localStorage.getItem('content');
+  	var theme = localStorage.getItem('theme');
+  	
+  	if (theme == "dodgerblue") {
+  		var bg = "dodgerblue";
+  	} else if (theme == "forestgreen") {
+  		var bg = "forestgreen";
+  	} else if (theme == "firebrick") {
+  		var bg = "firebrick";
+  	} else if (theme == "white") {
+  		var bg = "white";
+  	} else if (theme == "black") {
+  		var bg = "black";
+  	} else {
+  		var bg = "dodgerblue";
+  	}
+  	
+  	function myFunc(f, t) {
+      	var filt = verses.slice(f, t);
+      	
+  	if (cont == "front") {
+  		const test = filt.map(data => {
+      			return `<div class="swiper-slide">
+      							<div class="card">
+      								<div class="front">
+      									<div class="front-inner">
+      										${data.content}
+      									</div>
+      									<div class="back-inner ${bg}">
+      										${data.verse}
+      									</div>
+      								</div>
+      							</div>
+      						</div>`;
+      		}).join('');
+      		document.getElementById('container').innerHTML = test;
+  	} else if (cont == "back") {
+  		const test = filt.map(data => {
+      			return `<div class="swiper-slide">
+      							<div class="card">
+      								<div class="front">
+      									<div class="back-inner2 ${bg}">
+      										${data.verse}
+      									</div>
+      									<div class="front-inner2">
+      										${data.content}
+      									</div>
+      								</div>
+      							</div>
+      						</div>`;
+      		}).join('');
+      		document.getElementById('container').innerHTML = test;
+  		} else {
+  			const test = filt.map(data => {
+      			return `<div class="swiper-slide">
+      							<div class="card">
+      								<div class="front">
+      									<div class="back-inner2 ${bg}">
+      										${data.verse}
+      									</div>
+      									<div class="front-inner2">
+      										${data.content}
+      									</div>
+      								</div>
+      							</div>
+      						</div>`;
+      		}).join('');
+      		document.getElementById('container').innerHTML = test;
+  		}
+  	}
+      	
+      </script>
+      
+        <!-- Swiper JS -->
+  <script src="../js/swiper.min.js"></script>
+  
+   <script>
+    var swiper = new Swiper('.swiper-container', {
+      loop: true
+    });
+  </script>
+  
+  <script src="../js/shuffle.js"></script>
+      
+   </body>
+</html>

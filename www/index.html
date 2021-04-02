@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Verse Card App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="css/style.css">
+    <style>
+    		body {
+    			display: flex;
+    			justify-content: center;
+    			align-items: center;
+    			flex-direction: column;
+    		}
+    		.link-container {
+    			background: dodgerblue;
+    			display: flex;
+    			flex-direction: column;
+    			justify-content: center;
+    			align-items: center;
+    			height: 70%;
+    			width: 100%;
+    			border-radius: 1.5em;
+    			box-shadow: 0 0 .3em grey;
+    		}
+    		.link-container a {
+    			position: relative;
+    			display: inline-block;
+    			width: 100%;
+    			text-decoration: none;
+    			outline: none;
+    			text-align: center;
+    			font-size: 1em;
+    			color: #333;
+    			font-weight: bold;
+    			letter-spacing: 2px;
+    			text-transform: uppercase;
+    			padding: 1.5em;
+    			margin: .1em auto;
+    			background: #fff;
+    			overflow: hidden;
+    		}
+    		a:link {
+    			-webkit-tap-highlight-color: transparent;
+    		}
+    		a:active {
+    			background: dodgerblue;
+    		}
+    		.title {
+    			font-size: 2.2em;
+    			font-weight: bold;
+    			text-transform: uppercase;
+    			padding: .5em;
+    			color: #000;
+    			text-shadow: 0 1px 3px grey;
+    		}
+    		img {
+    			width: 1.5em;
+    			height: 1em;
+    		}
+    	</style>
+    	
+</head>
+
+<body>
+	<div class="title">
+		Verse Card
+	</div>
+	<div class="link-container">
+        	<a href="html/select.html">
+        		<img src="svg/rummy.svg"> 500 Verses
+        	</a>
+        	<a href="html/search.html">
+        		<img src="svg/search.svg"> Search Verse
+        	</a>
+        	<a href="html/settings.html">
+        		<img src="svg/cog.svg"> Settings
+        	</a>
+      </div>
+      
+</body>
+</html>
